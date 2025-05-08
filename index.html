@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canan Sıla - Grafik Tasarımcı</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Ana Stiller */
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-blue: #3b82f6;
+            --light-blue: #93c5fd;
+            --primary-red: #b91c1c;
+            --secondary-red: #ef4444;
+            --light-red: #fca5a5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #f9fafb 100%);
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* Header Stili */
+        header {
+            background: linear-gradient(to right, var(--primary-blue), var(--primary-red));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.05),
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0) 10px,
+                rgba(255, 255, 255, 0) 20px
+            );
+            z-index: 1;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 1rem;
+            background-color: #f0f9ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .profile-img i {
+            color: var(--secondary-blue);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        header h2 {
+            font-size: 1.25rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .contact-info i {
+            margin-right: 0.5rem;
+            color: var(--light-blue);
+        }
+
+        /* Ana İçerik */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Bölüm Stili */
+        section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--secondary-blue), var(--secondary-red));
+        }
+
+        .section-title i {
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+            color: var(--secondary-red);
+        }
+
+        /* Hakkımda Bölümü */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, var(--light-blue), var(--light-red));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            transform: scale(1.05);
+        }
+
+        .skill-tag i {
+            margin-right: 0.5rem;
+        }
+
+        /* Portfolyo Bölümü */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 200px;
+            background-color: var(--light-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.03);
+        }
+
+        .portfolio-item i {
+            font-size: 3rem;
+            color: white;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(30, 58, 138, 0.9), rgba(185, 28, 28, 0.7));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-overlay p {
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Hizmetler Bölümü */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-blue);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:nth-child(2n) {
+            border-left-color: var(--secondary-red);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card i {
+            font-size: 2rem;
+            color: var(--secondary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .service-card:nth-child(2n) i {
+            color: var(--secondary-red);
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-blue);
+        }
+
+        .service-card:nth-child(2n) h3 {
+            color: var(--primary-red);
+        }
+
+        /* Müşteri Memnuniyeti Bölümü */
+        .testimonials {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial {
+            min-width: 100%;
+            padding: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .testimonial-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .testimonial-content::before {
+            content: '\201C';
+            font-size: 4rem;
+            position: absolute;
+            top: -1rem;
+            left: 1rem;
+            color: var(--light-blue);
+            opacity: 0.2;
+            font-family: serif;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .client-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary-blue), var(--secondary-red));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .client-name {
+            font-weight: 600;
+        }
+
+        .client-title {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .testimonial-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+            gap: 0.5rem;
+        }
+
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--light-blue);
+            opacity: 0.5;
+            cursor: pointer;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .testimonial-dot.active {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        /* İletişim Formu */
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary-blue);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        .form-button {
+            background: linear-gradient(to right, var(--secondary-blue), var(--secondary-red));
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-button i {
+            margin-right: 0.5rem;
+        }
+
+        /* Sosyal Medya Bölümü */
+        .social-media {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+            padding: 2rem;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .social-media h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1f2937;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            color: var(--light-blue);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Tasarım */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: auto;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animasyonlar */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.8s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Bölümü -->
+    <header class="animate__animated animate__fadeIn">
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <div class="profile-img animate__animated animate__zoomIn">
+                <i class="fas fa-user"></i>
+            </div>
+            <h1 class="animate__animated animate__fadeInDown">Canan Sıla</h1>
+            <h2 class="animate__animated animate__fadeInUp">Grafik Tasarımcı</h2>
+            <div class="contact-info animate__animated animate__fadeIn animate__delay-1s">
+                <span><i class="fas fa-envelope"></i> canansla33@gmail.com</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hakkımda Bölümü -->
+        <section class="fade-in-up">
+            <h2 class="section-title"><i class="fas fa-user-circle"></i> Hakkımda</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Merhaba! Ben Canan Sıla, yaratıcı ve yenilikçi bir grafik tasarımcıyım. Görsel iletişimin gücüne inanıyor ve her projede benzersiz çözümler sunmayı hedefliyorum.</p>
+                    <p>Markalar için çarpıcı görsel kimlikler oluşturmak, kullanıcı deneyimini ön planda tutan arayüz tasarımları geliştirmek ve etkili baskı materyalleri hazırlamak konularında uzmanım.</p>
+                    <p>Her zaman yeni teknolojileri ve tasarım trendlerini takip ediyor, sürekli kendimi geliştirmeye özen gösteriyorum. Yaratıcı süreçte müşterilerimle yakın iş birliği yaparak, onların vizyonlarını en iyi şekilde yansıtan tasarımlar üretmek benim için en büyük motivasyon kaynağı.</p>
+                </div>
+                <div class="skills">
+                    <div class="skill-tag"><i class="fas fa-paint-brush"></i> Adobe Photoshop</div>
+                    <div class="skill-tag"><i class="fas fa-bezier-curve"></i> Adobe Illustrator</div>
+                    <div class="skill-tag"><i class="fas fa-book"></i> InDesign</div>
+                    <div class="skill-tag"><i class="fas fa-film"></i> After Effects</div>
+                    <div class="skill-tag"><i class="fas fa-pencil-ruler"></i> UI/UX Tasarımı</div>
+                    <div class="skill-tag"><i class="fas fa-palette"></i> Renk Teorisi</div>
+                    <div class="skill-tag"><i class="fas fa-font"></i> Tipografi</div>
+                    <div class="skill-tag"><i class="fas fa-mobile-alt"></i> Responsive Tasarım</div>
+                    <div class="skill-tag"><i class="fas fa-camera"></i> Fotoğrafçılık</div>
+                    <div class="skill-tag"><i class="fas fa-globe"></i> Web Tasarımı</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolyo Bölümü -->
+        <section class="fade-in-up delay-1">
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> Portfolyo</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <i class="fas fa-image"></i>
+                    <div class="portfolio-overlay">
+                        <h3>Marka Kimliği</h3>
+                        <p>Eco Friendly markası için yapılan kurumsal kimlik çalışması</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <div class="portfolio-overlay">
+                        <h3>Mobil Uygulama UI</h3>
+                        <p>Fitness uygulaması için kullanıcı arayüzü tasarımı</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <i class="fas fa-file-alt"></i>
+                    <div class="portfolio-overlay">
+                        <h3>Broşür Tasarımı</h3>
+                        <p>Tech Expo 2025 etkinliği için tanıtım broşürü</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <i class="fas fa-globe"></i>
+                    <div class="portfolio-overlay">
+                        <h3>Web Sitesi Tasarımı</h3>
+                        <p>Organik gıda markası için e-ticaret web sitesi</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <i class="fas fa-ad"></i>
+                    <div class="portfolio-overlay">
+                        <h3>Sosyal Medya Kampanyası</h3>
+                        <p>Yaz koleksiyonu için hazırlanan sosyal medya görselleri</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <i class="fas fa-video"></i>
+                    <div class="portfolio-overlay">
+                        <h3>Motion Grafik</h3>
+                        <p>Fintech firması için hazırlanan tanıtım animasyonu</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hizmetler Bölümü -->
+        <section class="fade-in-up delay-2">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Hizmetlerim</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-palette"></i>
+                    <h3>Kurumsal Kimlik Tasarımı</h3>
+                    <p>Logo, kartvizit, antetli kağıt ve diğer kurumsal kimlik öğeleri ile markanızı güçlendirin.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-desktop"></i>
+                    <h3>Web ve UI/UX Tasarımı</h3>
+                    <p>Kullanıcı dostu, modern ve etkileyici web siteleri ve dijital arayüzler tasarlıyorum.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-print"></i>
+                    <h3>Baskı Tasarımları</h3>
+                    <p>Broşür, katalog, afiş ve diğer baskı materyalleri ile mesajınızı etkili bir şekilde iletin.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-hashtag"></i>
+                    <h3>Sosyal Medya Tasarımları</h3>
+                    <p>Tüm platformlara özel, dikkat çekici içerikler ile sosyal medya varlığınızı güçlendirin.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-photo-video"></i>
+                    <h3>Motion Grafik</h3>
+                    <p>Hikayenizi anlatan, etkileyici animasyon ve video içerikleri oluşturuyorum.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-ad"></i>
+                    <h3>Reklam Kampanyaları</h3>
+                    <p>Bütünleşik ve tutarlı görsel reklam kampanyaları ile markanızı öne çıkarın.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Müşteri Memnuniyeti Bölümü -->
+        <section class="fade-in-up delay-3 testimonials">
+            <h2 class="section-title"><i class="fas fa-star"></i> Müşteri Memnuniyeti</h2>
+            <div class="testimonial-container">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"Canan'ın tasarım yaklaşımı gerçekten etkileyici. Şirketimiz için hazırladığı kurumsal kimlik çalışması tam olarak istediğimiz gibi oldu. Profesyonel çalışma tarzı ve yaratıcı çözümleri için çok teşekkür ederiz."</p>
+                        <div class="client-info">
+                            <div class="client-avatar">AY</div>
+                            <div>
+                                <div class="client-name">Ahmet Yılmaz</div>
+                                <div class="client-title">Pazarlama Müdürü, TechSmart</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"Web sitemizin yenilenmesi sürecinde Canan ile çalışmak büyük bir zevkti. Hem estetik hem de kullanıcı deneyimi açısından mükemmel bir iş çıkardı. Satışlarımız yeni web sitemiz sayesinde %30 arttı!"</p>
+                        <div class="client-info">
+                            <div class="client-avatar">BK</div>
+                            <div>
+                                <div class="client-name">Burak Kaya</div>
+                                <div class="client-title">CEO, EcoLife</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"Sosyal medya kampanyamız için hazırladığı görseller tam anlamıyla harika! Her bir tasarım markamızı mükemmel şekilde yansıtıyor ve takipçilerimizden çok olumlu geri dönüşler aldık. Kesinlikle yeniden çalışacağız."</p>
+                        <div class="client-info">
+                            <div class="client-avatar">SD</div>
+                            <div>
+                                <div class="client-name">Selin Demir</div>
+                                <div class="client-title">Sosyal Medya Yöneticisi, ModaPlus</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-controls">
+                <div class="testimonial-dot active"></div>
+                <div class="testimonial-dot"></div>
+                <div class="testimonial-dot"></div>
+            </div>
+        </section>
+
+        <!-- Sosyal Medya Bölümü -->
+        <section class="social-media fade-in-up delay-3">
+            <h2>Sosyal Medyada Beni Takip Edin</h2>
+            <p>En güncel projelerim ve tasarım içeriklerim için sosyal medya hesaplarımı takip edebilirsiniz.</p>
+            <div class="social-icons">
+                <div class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <div class="social-icon">
+                    <i class="fab fa-behance"></i>
+                </div>
+                <div class="social-icon">
+                    <i class="fab fa-linkedin-in"></i>
+                </div>
+                <div class="social-icon">
+                    <i class="fab fa-dribbble"></i>
+                </div>
+                <div class="social-icon">
+                    <i class="fab fa-pinterest"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- İletişim Bölümü -->
+        <section class="fade-in-up delay-4">
+            <h2 class="section-title"><i class="fas fa-envelope"></i> İletişim</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Adınız
